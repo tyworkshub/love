@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ULTRA GOD MODE ❤️</title>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+:root{--name:"Echo Yau";--green:#2ecc71;}
+body{margin:0;font-family:Arial;background:black;color:white;overflow-x:hidden;-webkit-tap-highlight-color:transparent;}
+*{box-sizing:border-box;}
+
+#bgVideo{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;filter:brightness(0.35);} 
+.overlay{position:fixed;inset:0;background:radial-gradient(circle,rgba(0,0,0,0.2),rgba(0,0,0,0.9));z-index:-1;}
+
+.lock{position:fixed;inset:0;display:flex;justify-content:center;align-items:center;background:black;z-index:9999;}
+.box{padding:30px;border-radius:20px;background:rgba(255,255,255,0.08);backdrop-filter:blur(10px);text-align:center;}
+input,button{padding:12px;margin-top:10px;border-radius:10px;border:none;font-size:16px;}
+button{background:var(--green);color:black;font-weight:bold;cursor:pointer;width:80%;}
+
+#intro{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:black;z-index:10000;font-size:2rem;color:var(--green);text-align:center;padding:20px;} 
+
+#ask{position:fixed;inset:0;display:none;justify-content:center;align-items:center;background:black;z-index:9998;text-align:center;padding:20px;}
+#yes{font-size:18px;padding:15px 25px;background:var(--green);color:black;}
+
+.screen{position:fixed;inset:0;display:none;justify-content:center;align-items:center;flex-direction:column;text-align:center;padding:20px;}
+
+.cat{font-size:100px;cursor:pointer;}
+.food{font-size:70px;margin-top:20px;display:none;}
+
+.big{font-size:2.2rem;}
+
+.heart{position:absolute;width:12px;height:12px;background:var(--green);transform:rotate(45deg);animation:float 6s linear infinite;}
+.heart::before,.heart::after{content:'';position:absolute;width:12px;height:12px;background:var(--green);border-radius:50%;}
+.heart::before{top:-6px}.heart::after{left:-6px}
+@keyframes float{0%{transform:translateY(100vh) rotate(45deg)}100%{transform:translateY(-10vh) rotate(45deg)}}
+</style>
+</head>
+<body>
+
+<video autoplay muted loop id="bgVideo">
+<source src="bg.mp4" type="video/mp4"></video>
+<div class="overlay"></div>
+
+<div id="intro">HEY Echo Yau my bb 💚</div>
+
+<div class="lock" id="lock">
+<div class="box">
+<h2>ENTER PASSWORD 💖</h2>
+<input id="pass" type="password">
+<button onclick="unlock()">ENTER</button>
+</div>
+</div>
+
+<div id="ask">
+<div>
+<h1>Do you miss me? 💚</h1>
+<button id="yes" onclick="yesClick()">YES 💕</button>
+<button id="no" onclick="noClick()">NO 💔</button>
+</div>
+</div>
+
+<!-- LEVEL 1 -->
+<div id="level1" class="screen">
+<h1>Level 1: Take care of our cat 🐈‍⬛</h1>
+<p>Tap the cat to pet & feed it 💚</p>
+<div class="cat" onclick="petCat()">🐈‍⬛</div>
+<div id="food" class="food">🍗</div>
+<p id="catText">She is waiting for you...</p>
+<button id="nextBtn" onclick="goLevel2()" style="display:none;">Next 💕</button>
+</div>
+
+<!-- LEVEL 2 -->
+<div id="level2" class="screen">
+<h1>💌 A Love Letter</h1>
+<p style="max-width:400px;">
+I love you and I miss you bb 💚<br><br>
+When can I see you again? 🥺<br><br>
+Don't sleep late okay ❤️
+</p>
+<button onclick="goFinal()">Continue 💖</button>
+</div>
+
+<!-- FINAL -->
+<div id="final" class="screen">
+<h1 class="big">I LOVE YOU 💍</h1>
+<button onclick="showSurprise()">One more thing... 💌</button>
+</div>
+
+<!-- SURPRISE -->
+<div id="surprise" class="screen">
+<h1>💖 Surprise Message 💖</h1>
+<p style="max-width:400px;">
+No matter what happens, I will always choose you.<br><br>
+You are my peace, my happiness, my home.<br><br>
+I love you more than you know 💚
+</p>
+</div>
+
+<!-- AUDIO -->
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8f6b5c6a1.mp3?filename=romantic-background-112191.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="purr">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b2f4f.mp3?filename=cat-purr-ambience-112193.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+let scale=1;
+let taps=0;
+
+/* 🔥 MOBILE AUDIO UNLOCK FIX */
+document.addEventListener("click", () => {
+    let m = document.getElementById("music");
+    if (m.paused) {
+        m.play().catch(()=>{});
+    }
+}, { once: true });
+
+function fadeInMusic(){
+    let m=document.getElementById("music");
+    m.volume=0;
+    m.play().catch(()=>{});
+    let v=0;
+    let fade=setInterval(()=>{
+        v+=0.05;
+        if(v>=1){v=1;clearInterval(fade);} 
+        m.volume=v;
+    },200);
+}
+
+function unlock(){
+if(pass.value=="0108"){
+lock.style.display="none";
+intro.style.display="flex";
+setTimeout(()=>{
+intro.style.display="none";
+ask.style.display="flex";
+},2000);
+}
+}
+
+function yesClick(){
+ask.style.display="none";
+level1.style.display="flex";
+fadeInMusic();
+confetti({particleCount:300,spread:180});
+hearts();
+}
+
+function noClick(){
+scale+=0.5;
+yes.style.transform=`scale(${scale})`;
+confetti({particleCount:40});
+}
+
+function petCat(){
+    taps++;
+    let p = document.getElementById("purr");
+    p.currentTime = 0;
+    p.play().catch(()=>{});
+
+    confetti({particleCount:20});
+
+    if(taps===5){
+        document.getElementById("food").style.display="block";
+        catText.innerText="You fed her 💚 she loves you";
+        nextBtn.style.display="block";
+        confetti({particleCount:150,spread:120});
+    }
+}
+
+function goLevel2(){
+level1.style.display="none";
+level2.style.display="flex";
+confetti({particleCount:200});
+}
+
+function goFinal(){
+level2.style.display="none";
+final.style.display="flex";
+confetti({particleCount:400});
+}
+
+function showSurprise(){
+final.style.display="none";
+surprise.style.display="flex";
+confetti({particleCount:800,spread:200});
+}
+
+function hearts(){
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.style.left=Math.random()*100+"vw";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),6000);
+},200);
+}
+</script>
+
+</body>
+</html>
